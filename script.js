@@ -12,14 +12,14 @@ function resizeCanvas() {
 }
 
 function createConfetti() {
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 300; i++) {
         confetti.push({
             x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
+            y: Math.random() * canvas.height - canvas.height,
             size: Math.random() * 10 + 5,
             color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
             dx: Math.random() * 2 - 1,
-            dy: Math.random() * 2 + 1,
+            dy: Math.random() * 3 + 2,
         });
     }
 }
@@ -39,15 +39,16 @@ function drawConfetti() {
         }
     });
 
-    requestAnimationFrame(drawConfetti);
+    if (confetti.length > 0) {
+        requestAnimationFrame(drawConfetti);
+    }
 }
 
 heartButton.addEventListener('click', () => {
-    message.classList.toggle('show');
-    if (confetti.length === 0) {
-        createConfetti();
-        drawConfetti();
-    }
+    heartButton.style.display = 'none';
+    message.classList.add('show');
+    createConfetti();
+    drawConfetti();
 });
 
 resizeCanvas();
